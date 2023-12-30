@@ -1,2 +1,15 @@
-<div>※確認用 </div> 
+<div>※確認用 </div>
+<% @tweets.each do |f| %>
+  <div><%= link_to user_path(t.user.id),style:"color: :red;" do %><%= t.user.nickname %><%= link_to tweet_path(t.id) do %><%= t.text %><% end %></div>
+<%= paginate(@tweets) %>
+<% end %>
 
+<%= form_with(url: tweets_searches_path, local: true, method: :get) do |f| %>
+   <%= f.text_field :keyword %>
+   <%= f.submit "検索" %>
+<% end %>
+
+<% @tweet.each do |t| %>
+  <div><%= link_to user_path(t.user.id),style:"color: red;" do %><%= t.user.nickname %><%= link_to tweet_path(t.id) do %><%= t.text %><% end %></div>
+<% end %>
+<%= paginate(@tweets) %>

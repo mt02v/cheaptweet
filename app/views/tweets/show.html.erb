@@ -1,0 +1,17 @@
+<div><span style="color: red;"><%= tweet.user.nickname %></span><%= @tweet.text %></div>
+<% if user_signed_in? && current_user.id == @tweet.user_id %>
+  <%= link_to "編集", edit_tweet_path(@tweet.id) %><%= link_to "削除", tweet_path(@tweet.id),method: :delete %>
+<% end %>
+
+<% if user_signed_in? %>
+ <%= form_with(model: [@tweet, @comment], local: true) do |f| %>
+  <%= f.text_area :text %>
+  <%= f.submit 'コメント' %>
+ <% end %>
+<% end %>
+<if @comments %>
+ <%= @comments.each do |c| %>
+   <div><%= link_to user_path(@tweet.user.id),style:"color: red;" do %><%= @tweet.useer.nickname %><%= @tweet.text %></div>
+ <% end %>
+ <%= paginate(@comments) %>
+<% end %>
